@@ -34,10 +34,6 @@ package ro.mdc_software.basenumber;
     //endregion
 
     //region Setters
-
-    /**
-     * Setters.
-     */
     public void setNumber(String number) {
         this.number = number;
     }
@@ -46,6 +42,31 @@ package ro.mdc_software.basenumber;
         this.base = value;
     }
     //endregion
+
+    //region Constructors
+    protected StringNumber(Object value) throws BaseNumberException {
+        this(value, 10);
+    }
+
+    protected StringNumber() throws BaseNumberException {
+        this("0", 10);
+    }
+
+    protected StringNumber(StringNumber number) {
+        this.setNumber(number.getNumber());
+        this.setBase(number.getBase());
+    }
+
+    protected StringNumber(Object value, int base) throws BaseNumberException {
+        validate(value, base);
+
+        setNumber(value.toString().toUpperCase());
+        setBase(base);
+
+        normalize();
+    }
+    //endregion
+
 
     @Override
     public int intValue() {
@@ -67,31 +88,38 @@ package ro.mdc_software.basenumber;
         throw new NumberFormatException("The number cannot be converted to double.");
     }
 
-    //region Getters
-    protected StringNumber(Object value) throws BaseNumberException {
-        this(value, 10);
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return new StringNumber(this);
     }
 
-    protected StringNumber() throws BaseNumberException {
-        this("0", 10);
+    @Override
+    public String toString() {
+        return this.getNumber() + "(" + (new Integer(this.getBase())).toString()
+                + ")";
     }
 
-    protected StringNumber(StringNumber number) {
-        this.setNumber(number.getNumber());
-        this.setBase(number.getBase());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof StringNumber)) {
+            return false;
+        }
+
+        StringNumber that = (StringNumber) o;
+        return getBase() == that.getBase() && (getNumber() != null ? getNumber().equals(that.getNumber()) : that.getNumber() == null);
     }
 
-    protected StringNumber(Object value, int base) throws BaseNumberException {
-        valide(value, base);
-
-        setNumber(value.toString().toUpperCase());
-        setBase(base);
-
-        normalize();
+    @Override
+    public int hashCode() {
+        int result = getNumber() != null ? getNumber().hashCode() : 0;
+        result = 31 * result + getBase();
+        return result;
     }
-    //endregion
 
-    private static void valide(Object value, int base) throws BaseNumberException {
+    private static void validate(Object value, int base) throws BaseNumberException {
         if (!(value instanceof String || value instanceof Integer || value instanceof Long)) {
             throw new BaseNumberException("Number must be string or integer or long.");
         }
@@ -127,13 +155,5 @@ package ro.mdc_software.basenumber;
         if (ok == 1 && !number.equals("0")) {
             this.setNumber("-" + number);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return new StringNumber(this);
     }
 }

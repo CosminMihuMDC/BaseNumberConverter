@@ -492,55 +492,70 @@ public class BaseNumber extends StringNumber {
     }
 
     /**
-     * alte functii
+     * =======================================================================================================================
      */
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+
+
+    //region Constructors
+    public BaseNumber(Object value) throws BaseNumberException {
+        super(value, 10);
     }
 
-    @Override
-    public String toString() {
-        return this.getNumber() + "(" + (new Integer(this.getBase())).toString()
-                + ")";
+    public BaseNumber() throws BaseNumberException {
+        super();
     }
 
-    // ------------------------functii
-    // ajutatoare---------------------------------
+    public BaseNumber(BaseNumber number) {
+        super(number);
+    }
+
+    public BaseNumber(Object value, int base) throws BaseNumberException {
+        super(value, base);
+    }
+    //endregion
+
+    //region Range Functions
 
     /**
-     * Genereaza o lista de KNumbers in baza [Base] de la [start] la [end].
+     * Generates a list of BaseNumbers (in base {base}) starting from {start} and ending with {end}.
      *
      * @throws BaseNumberException
      */
-    public static java.util.ArrayList<BaseNumber> range(int start, int end,
-                                                        int Base) throws BaseNumberException {
-        java.util.ArrayList<BaseNumber> lista = new java.util.ArrayList<BaseNumber>();
+    public static java.util.List<BaseNumber> range(int start, int end, int base) throws BaseNumberException {
+        java.util.ArrayList<BaseNumber> list = new java.util.ArrayList<BaseNumber>();
         if (0 <= end) {
             for (int i = start; i <= end; i++) {
-                lista.add(new BaseNumber(i, Base));
+                list.add(new BaseNumber(i, base));
             }
         }
-        return lista;
-    }
-
-    public static java.util.ArrayList<BaseNumber> range(int end, int Base)
-            throws BaseNumberException {
-        return BaseNumber.range(0, end, Base);
+        return list;
     }
 
     /**
-     * Genereaza o lista de KNumbers in baza 10 de la [start] la [end].
+     * Generates a list of BaseNumbers (in base {base}) starting from 0 and ending with {end}.
      *
      * @throws BaseNumberException
      */
-    public static java.util.ArrayList<BaseNumber> rangeBase10(int start, int end)
-            throws BaseNumberException {
+    public static java.util.List<BaseNumber> range(int end, int base) throws BaseNumberException {
+        return BaseNumber.range(0, end, base);
+    }
+
+    /**
+     * Generates a list of BaseNumbers (in base 10) starting from {start} and ending with {end}.
+     *
+     * @throws BaseNumberException
+     */
+    public static java.util.List<BaseNumber> rangeBase10(int start, int end) throws BaseNumberException {
         return BaseNumber.range(start, end, 10);
     }
 
-    public static java.util.ArrayList<BaseNumber> rangeBase10(int end)
-            throws BaseNumberException {
+    /**
+     * Generates a list of BaseNumbers (in base 10) starting from 0 and ending with {end}.
+     *
+     * @throws BaseNumberException
+     */
+    public static java.util.List<BaseNumber> rangeBase10(int end) throws BaseNumberException {
         return BaseNumber.range(0, end, 10);
     }
+    //endregion
 }
