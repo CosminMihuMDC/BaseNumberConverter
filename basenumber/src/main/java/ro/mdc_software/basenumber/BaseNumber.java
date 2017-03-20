@@ -8,105 +8,6 @@ package ro.mdc_software.basenumber;
 public class BaseNumber extends StringNumber {
 
 
-    //endregion
-
-    // C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
-    // /#endregion
-
-    // overload operators
-    // C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
-    // /#region overload operators
-    // compare
-    public static boolean OpLessThan(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        if (nr1.getBase() == nr2.getBase()) {
-            String a = nr1.getNumber(), b = nr2.getNumber();
-            if (a.charAt(0) == '-' && b.charAt(0) == '-') {
-                return (OpLessThan(new BaseNumber(a.substring(1), nr1.getBase()),
-                        new BaseNumber(b.substring(1), nr2.getBase())));
-            }
-            if (a.charAt(0) != '-' && b.charAt(0) != '-') {
-
-                if (nr1.getNumber().length() > nr2.getNumber().length()) {
-                    return false;
-                }
-                if (nr1.getNumber().length() < nr2.getNumber().length()) {
-                    return true;
-                }
-                if (nr1.getNumber().length() == nr2.getNumber().length()) {
-                    int i = 0;
-                    while (i < nr1.getNumber().length()
-                            && nr1.getNumber().charAt(i) == nr2.getNumber()
-                            .charAt(i)) {
-                        i++;
-                    }
-                    if (i < nr1.getNumber().length()
-                            && BaseNumber.getBaseDigits().indexOf(
-                            nr1.getNumber().charAt(i)) > BaseNumber
-                            .getBaseDigits().indexOf(
-                                    nr2.getNumber().charAt(i))) {
-                        return false;
-                    }
-                    if (i < nr1.getNumber().length()
-                            && BaseNumber.getBaseDigits().indexOf(
-                            nr1.getNumber().charAt(i)) < BaseNumber
-                            .getBaseDigits().indexOf(
-                                    nr2.getNumber().charAt(i))) {
-                        return true;
-                    }
-                }
-            } else if (a.charAt(0) == '-' && b.charAt(0) != '-') {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            throw new BaseNumberException(
-                    "It's not possible to compare 2 KNumbers in different bases: "
-                            + (new Integer(nr1.getBase())).toString() + "!="
-                            + (new Integer(nr2.getBase())).toString() + ".");
-        }
-        return false;
-
-    }
-
-    public static boolean OpGreaterThan(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        if (BaseNumber.OpLessThan(nr1, nr2)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean OpEquality(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        return nr1.equals(nr2);
-    }
-
-    public static boolean OpInequality(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        if (BaseNumber.OpEquality(nr1, nr2)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean OpLessThanOrEqual(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        if (BaseNumber.OpLessThan(nr1, nr2) || BaseNumber.OpEquality(nr1, nr2)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean OpGreaterThanOrEqual(BaseNumber nr1, BaseNumber nr2)
-            throws BaseNumberException {
-        if (BaseNumber.OpGreaterThan(nr1, nr2) || BaseNumber.OpEquality(nr1, nr2)) {
-            return true;
-        }
-        return false;
-    }
-
     // add
 
     /**
@@ -117,20 +18,20 @@ public class BaseNumber extends StringNumber {
     public final void Add(BaseNumber nr) throws BaseNumberException {
         if (this.getBase() == nr.getBase()) {
             BaseNumber zero = new BaseNumber("0", nr.getBase());
-            if (BaseNumber.OpGreaterThan(this, zero)
-                    && BaseNumber.OpGreaterThan(nr, zero)) {
+            if (BaseNumber.greaterThan(this, zero)
+                    && BaseNumber.greaterThan(nr, zero)) {
                 this.setNumber(BaseNumber.add(this.getNumber(), nr.getNumber(),
                         this.getBase()));
             } else {
-                if (BaseNumber.OpLessThan(this, zero)
-                        && BaseNumber.OpLessThan(nr, zero)) {
+                if (BaseNumber.lessThan(this, zero)
+                        && BaseNumber.lessThan(nr, zero)) {
                     this.setNumber("-"
                             + BaseNumber.add(this.getNumber().substring(1), nr
                             .getNumber().substring(1), this.getBase()));
                 } else {
-                    if (BaseNumber.OpGreaterThan(this, zero)
-                            && BaseNumber.OpLessThan(nr, zero)) {
-                        if (OpGreaterThan(this, new BaseNumber(nr.getNumber()
+                    if (BaseNumber.greaterThan(this, zero)
+                            && BaseNumber.lessThan(nr, zero)) {
+                        if (greaterThan(this, new BaseNumber(nr.getNumber()
                                 .substring(1), nr.getBase()))) {
                             this.setNumber(BaseNumber.sub(this.getNumber(), nr
                                     .getNumber().substring(1), this.getBase()));
@@ -140,7 +41,7 @@ public class BaseNumber extends StringNumber {
                                     this.getNumber(), this.getBase()));
                         }
                     } else {
-                        if (BaseNumber.OpGreaterThan(new BaseNumber(this.getNumber()
+                        if (BaseNumber.greaterThan(new BaseNumber(this.getNumber()
                                 .substring(1), this.getBase()), nr)) {
                             this.setNumber("-"
                                     + BaseNumber.sub(this.getNumber().substring(1),
@@ -183,19 +84,19 @@ public class BaseNumber extends StringNumber {
     public final void Substract(BaseNumber nr) throws BaseNumberException {
         if (this.getBase() == nr.getBase()) {
             BaseNumber zero = new BaseNumber("0", nr.getBase());
-            if (BaseNumber.OpGreaterThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            if (BaseNumber.greaterThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber(BaseNumber.add(this.getNumber(), nr.getNumber()
                         .substring(1), this.getBase()));
             } else {
-                if (BaseNumber.OpLessThan(this, zero)
-                        && BaseNumber.OpGreaterThan(nr, zero)) {
+                if (BaseNumber.lessThan(this, zero)
+                        && BaseNumber.greaterThan(nr, zero)) {
                     this.setNumber("-"
                             + BaseNumber.add(this.getNumber().substring(1),
                             nr.getNumber(), this.getBase()));
                 } else {
-                    if (BaseNumber.OpGreaterThan(this, zero)
-                            && BaseNumber.OpGreaterThan(nr, zero)) {
+                    if (BaseNumber.greaterThan(this, zero)
+                            && BaseNumber.greaterThan(nr, zero)) {
                         if (BaseNumber.OpGreaterThanOrEqual(this, nr)) {
                             this.setNumber(BaseNumber.sub(this.getNumber(),
                                     nr.getNumber(), this.getBase()));
@@ -205,7 +106,7 @@ public class BaseNumber extends StringNumber {
                                     this.getNumber(), this.getBase()));
                         }
                     } else {
-                        if (OpLessThan(
+                        if (lessThan(
                                 new BaseNumber(this.getNumber().substring(1),
                                         this.getBase()),
                                 new BaseNumber(nr.getNumber().substring(1), nr
@@ -246,9 +147,9 @@ public class BaseNumber extends StringNumber {
 
     public static BaseNumber OpUnaryNegation(BaseNumber nr) throws BaseNumberException {
         BaseNumber zero = new BaseNumber(0);
-        if (BaseNumber.OpGreaterThan(nr, zero)) {
+        if (BaseNumber.greaterThan(nr, zero)) {
             nr.setNumber("-" + nr.getNumber());
-        } else if (BaseNumber.OpLessThan(nr, zero)) {
+        } else if (BaseNumber.lessThan(nr, zero)) {
             nr.setNumber(nr.getNumber().substring(1));
         }
         return nr;
@@ -266,17 +167,17 @@ public class BaseNumber extends StringNumber {
                     && BaseNumber.OpGreaterThanOrEqual(nr, zero)) {
                 this.setNumber(BaseNumber.mul(this.getNumber(), nr.getNumber(),
                         this.getBase()));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber(BaseNumber.mul(this.getNumber().substring(1), nr
                         .getNumber().substring(1), this.getBase()));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpGreaterThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.greaterThan(nr, zero)) {
                 this.setNumber("-"
                         + BaseNumber.mul(this.getNumber().substring(1),
                         nr.getNumber(), this.getBase()));
-            } else if (BaseNumber.OpGreaterThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.greaterThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber("-"
                         + BaseNumber.mul(this.getNumber(),
                         nr.getNumber().substring(1), this.getBase()));
@@ -299,7 +200,7 @@ public class BaseNumber extends StringNumber {
 
     public static BaseNumber OpExclusiveOr(BaseNumber nr1, BaseNumber nr2)
             throws BaseNumberException { // Pre: daca nr2<0 atunci return 0
-        if (BaseNumber.OpLessThan(nr2, new BaseNumber(0, nr2.getBase()))) {
+        if (BaseNumber.lessThan(nr2, new BaseNumber(0, nr2.getBase()))) {
             return new BaseNumber(0, nr2.getBase());
         }
 
@@ -327,17 +228,17 @@ public class BaseNumber extends StringNumber {
                     && BaseNumber.OpGreaterThanOrEqual(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber(), nr.getNumber(),
                         this.getBase()).get(0));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber().substring(1),
                         nr.getNumber().substring(1), this.getBase()).get(0));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpGreaterThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.greaterThan(nr, zero)) {
                 this.setNumber("-"
                         + BaseNumber.div(this.getNumber().substring(1),
                         nr.getNumber(), this.getBase()).get(0));
-            } else if (BaseNumber.OpGreaterThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.greaterThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber("-"
                         + BaseNumber.div(this.getNumber(),
                         nr.getNumber().substring(1), this.getBase())
@@ -361,16 +262,16 @@ public class BaseNumber extends StringNumber {
                     && BaseNumber.OpGreaterThanOrEqual(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber(), nr.getNumber(),
                         this.getBase()).get(1));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber().substring(1),
                         nr.getNumber().substring(1), this.getBase()).get(1));
-            } else if (BaseNumber.OpLessThan(this, zero)
-                    && BaseNumber.OpGreaterThan(nr, zero)) {
+            } else if (BaseNumber.lessThan(this, zero)
+                    && BaseNumber.greaterThan(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber().substring(1),
                         nr.getNumber(), this.getBase()).get(1));
-            } else if (BaseNumber.OpGreaterThan(this, zero)
-                    && BaseNumber.OpLessThan(nr, zero)) {
+            } else if (BaseNumber.greaterThan(this, zero)
+                    && BaseNumber.lessThan(nr, zero)) {
                 this.setNumber(BaseNumber.div(this.getNumber(),
                         nr.getNumber().substring(1), this.getBase()).get(1));
             }
@@ -417,7 +318,7 @@ public class BaseNumber extends StringNumber {
                 e.printStackTrace();
             }
 
-            if (BaseNumber.OpLessThan(nr, new BaseNumber(0, nr.getBase()))) {
+            if (BaseNumber.lessThan(nr, new BaseNumber(0, nr.getBase()))) {
                 nr.setNumber("-"
                         + BaseNumber.Convert(nr.getNumber().substring(1),
                         nr.getBase(), h));
@@ -473,6 +374,105 @@ public class BaseNumber extends StringNumber {
 
     public BaseNumber(Object value, int base) throws BaseNumberException {
         super(value, base);
+    }
+    //endregion
+
+    //region Compare Functions
+
+    /**
+     * Is this BaseNumber less than {that}.
+     *
+     * @return <code>this</code> < <code>that</code>.
+     * @throws BaseNumberException
+     */
+    public boolean lessThan(BaseNumber that)
+            throws BaseNumberException {
+        if (this.getBase() == that.getBase()) {
+            String a = this.getNumber(), b = that.getNumber();
+            if (a.charAt(0) == '-' && b.charAt(0) == '-') {
+                return new BaseNumber(a.substring(1), this.getBase()).lessThan(new BaseNumber(b.substring(1), that.getBase()));
+            }
+            if (a.charAt(0) != '-' && b.charAt(0) != '-') {
+
+                if (this.getNumber().length() > that.getNumber().length()) {
+                    return false;
+                }
+                if (this.getNumber().length() < that.getNumber().length()) {
+                    return true;
+                }
+                if (this.getNumber().length() == that.getNumber().length()) {
+                    int i = 0;
+                    while (i < this.getNumber().length()
+                            && this.getNumber().charAt(i) == that.getNumber()
+                            .charAt(i)) {
+                        i++;
+                    }
+                    if (i < this.getNumber().length()
+                            && BaseNumber.getBaseDigits().indexOf(
+                            this.getNumber().charAt(i)) > BaseNumber
+                            .getBaseDigits().indexOf(
+                                    that.getNumber().charAt(i))) {
+                        return false;
+                    }
+                    if (i < this.getNumber().length()
+                            && BaseNumber.getBaseDigits().indexOf(
+                            this.getNumber().charAt(i)) < BaseNumber
+                            .getBaseDigits().indexOf(
+                                    that.getNumber().charAt(i))) {
+                        return true;
+                    }
+                }
+            } else if (a.charAt(0) == '-' && b.charAt(0) != '-') {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            throw new BaseNumberException(
+                    "It's not possible to compare 2 BaseNumber in different bases: "
+                            + (new Integer(this.getBase())).toString() + "!="
+                            + (new Integer(that.getBase())).toString() + ".");
+        }
+        return false;
+    }
+
+    /**
+     * Is this BaseNumber greater than {that}.
+     *
+     * @return <code>this</code> > <code>that</code>.
+     * @throws BaseNumberException
+     */
+    public boolean greaterThan(BaseNumber that) throws BaseNumberException {
+        if (lessThan(that) || equals(that)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Is this BaseNumber less or equal than {that}.
+     *
+     * @return <code>this</code> <= <code>that</code>.
+     * @throws BaseNumberException
+     */
+    public boolean lessThanOrEqual(BaseNumber that) throws BaseNumberException {
+        if (lessThan(that) || equals(that)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Is this BaseNumber greater or equal than {that}.
+     *
+     * @return <code>this</code> >= <code>that</code>.
+     * @throws BaseNumberException
+     */
+    public boolean greaterThanOrEqual(BaseNumber that) throws BaseNumberException {
+        if (greaterThan(that) || equals(that)) {
+            return true;
+        }
+        return false;
     }
     //endregion
 
@@ -555,5 +555,15 @@ public class BaseNumber extends StringNumber {
         }
         return false;
     }
+
+    /**
+     * Indicates whether baseNumber object is "not equal to" this one.
+     *
+     * @return this != that.
+     */
+    public boolean notEquals(BaseNumber that) {
+        return !equals(that);
+    }
+
     //endregion
 }
