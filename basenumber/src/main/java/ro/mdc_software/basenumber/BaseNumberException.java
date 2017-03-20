@@ -8,5 +8,4 @@ public class BaseNumberException extends Exception {
 	public BaseNumberException(String message) {
 		super(message);
 	}
-
 }

@@ -6,7 +6,7 @@ package ro.mdc_software.basenumber;
  * @author Cosmin Mihu
  * @date 20-March-2017
  */
-/* package */ class StringBaseNumber {
+/* package */ abstract class MathOperations extends Number {
 
     private static String BASE_DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

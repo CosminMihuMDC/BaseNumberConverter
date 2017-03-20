@@ -5,18 +5,7 @@ package ro.mdc_software.basenumber;
  *
  * @author Cosmin Mihu
  */
-public class BaseNumber extends StringBaseNumber {
-
-    /**
-     * Number representation stored as string. The current base number is {@link #base}.
-     * It is used this approach to handle large numbers that cannot fit into <code>int</code> or <code>long</code>.
-     */
-    private String number;
-
-    /**
-     * The base of the {@link #number}.
-     */
-    private int base;
+public class BaseNumber extends StringNumber {
 
     /*
      Define default numbers (zero and one) in base <code>10</code>.
@@ -29,61 +18,6 @@ public class BaseNumber extends StringBaseNumber {
         }
     }
 
-    //region Getters
-
-    /**
-     * Getters.
-     */
-    public final String getNumber() {
-        return this.number;
-    }
-
-    public final int getBase() {
-        return this.base;
-    }
-
-    //endregion
-
-    //region Setters
-
-    /**
-     * Setters.
-     */
-    private void setNumber(String number) {
-        this.number = number;
-    }
-
-    private void setBase(int value) {
-        this.base = value;
-    }
-    //endregion
-
-    //region Contructors
-
-    /**
-     * Contructors.
-     */
-    public BaseNumber(Object value, int baseNumber) throws BaseNumberException {
-        BaseNumber.valide(value, baseNumber);
-
-        this.setNumber(value.toString().toUpperCase());
-        this.setBase(baseNumber);
-
-        this.normalize();
-    }
-
-    public BaseNumber(Object value) throws BaseNumberException {
-        this(value, 10);
-    }
-
-    public BaseNumber() throws BaseNumberException {
-        this("0", 10);
-    }
-
-    public BaseNumber(BaseNumber nr) {
-        this.setNumber(nr.getNumber());
-        this.setBase(nr.getBase());
-    }
     //endregion
 
     // C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
@@ -569,59 +503,6 @@ public class BaseNumber extends StringBaseNumber {
     public String toString() {
         return this.getNumber() + "(" + (new Integer(this.getBase())).toString()
                 + ")";
-    }
-
-    private void normalize() {
-        int ok;
-        if (this.getNumber().charAt(0) == '-' && this.getNumber().length() > 1) {
-            ok = 1;
-            this.setNumber(this.getNumber().substring(1));
-        } else {
-            ok = 0;
-        }
-
-        int i = ok;
-        while (this.getNumber().length() > 1 && this.getNumber().charAt(0) == '0') {
-            i++;
-            this.setNumber(this.getNumber().substring(1));
-        }
-        if (ok == 1 && !this.getNumber().equals("0")) {
-            this.setNumber("-" + this.getNumber());
-        }
-
-    }
-
-    private static void valide(Object value, int baseNumber) throws BaseNumberException {
-        if (!(value instanceof String || value instanceof Integer)) {
-            throw new BaseNumberException("BaseNumber must be integer or string.");
-        }
-        if (value.toString().length() <= 0) {
-            throw new BaseNumberException("BaseNumber must be integer or string, not null.");
-        }
-        if (baseNumber > BaseNumber.getBaseDigits().length()) {
-            throw new BaseNumberException("BaseNumber's base can not be greater than "
-                    + BaseNumber.getBaseDigits().length() + ".");
-        }
-
-        String aux = value.toString().toUpperCase();
-        int i = (aux.charAt(0) != '-') ? 0 : 1;
-        for (; i < aux.length(); i++) {
-            if (BaseNumber.getBaseDigits().indexOf(aux.charAt(i)) == -1
-                    || BaseNumber.getBaseDigits().indexOf(aux.charAt(i)) >= baseNumber) {
-                throw new BaseNumberException("The digit '" + aux.charAt(i)
-                        + "' does not exist in base "
-                        + (new Integer(baseNumber)).toString() + ".");
-            }
-        }
-    }
-
-    /**
-     * Cloneaza acest BaseNumber, creand o copie a sa.
-     *
-     * @throws BaseNumberException
-     */
-    public final BaseNumber Clone() throws BaseNumberException {
-        return new BaseNumber(this.getNumber(), this.getBase());
     }
 
     // ------------------------functii
