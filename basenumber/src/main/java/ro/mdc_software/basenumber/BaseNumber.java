@@ -7,16 +7,6 @@ package ro.mdc_software.basenumber;
  */
 public class BaseNumber extends StringNumber {
 
-    /*
-     Define default numbers (zero and one) in base <code>10</code>.
-    */
-    static {
-        try {
-            BaseNumber zero = new BaseNumber(0);
-            BaseNumber one = new BaseNumber(1);
-        } catch (Exception ignore) {
-        }
-    }
 
     //endregion
 
@@ -454,47 +444,19 @@ public class BaseNumber extends StringNumber {
         return BaseNumber.OpLeftShift(nr, baseNumber);
     }
 
-    // egalitate
-
-    /**
-     * Verifica egaliatate a 2 KNumbers.
-     */
-    public final boolean RawEquals(BaseNumber nr) {
-        if (this.getBase() == nr.getBase()) {
-            if (this.getNumber().equals(nr.getNumber())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public final boolean equals(BaseNumber nr) throws BaseNumberException {
-        if (this.getBase() == nr.getBase() && this.RawEquals(nr) == true) {
-            return true;
-        } else {
-            BaseNumber aux = new BaseNumber(nr);
-            aux.Convert(this.getBase());
-            if (this.RawEquals(aux) == true) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        try {
-            BaseNumber aux = new BaseNumber(obj);
-            return BaseNumber.OpEquality(this, aux);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     /**
      * =======================================================================================================================
      */
 
+    //region Default numbers (zero and one) in base <code>10</code>.
+    static {
+        try {
+            BaseNumber ZERO = new BaseNumber(0);
+            BaseNumber ONE = new BaseNumber(1);
+        } catch (Exception ignore) {
+        }
+    }
+    //endregion
 
     //region Constructors
     public BaseNumber(Object value) throws BaseNumberException {
@@ -556,6 +518,42 @@ public class BaseNumber extends StringNumber {
      */
     public static java.util.List<BaseNumber> rangeBase10(int end) throws BaseNumberException {
         return BaseNumber.range(0, end, 10);
+    }
+    //endregion
+
+    //region Equals
+
+    /**
+     * Base of baseNumber could be different of the current one's base.
+     *
+     * @throws BaseNumberException
+     */
+    private boolean equalsInternal(BaseNumber baseNumber) throws BaseNumberException {
+        try {
+            // Convert into my base
+            BaseNumber aux = (BaseNumber) baseNumber.clone();
+            aux.Convert(this.getBase());
+
+            // Check equals now
+            return super.equals(aux);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean same = super.equals(obj);
+        if (same) {
+            return true;
+        }
+        try {
+            return equalsInternal((BaseNumber) obj);
+        } catch (BaseNumberException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     //endregion
 }

@@ -109,7 +109,7 @@ package ro.mdc_software.basenumber;
         }
 
         StringNumber that = (StringNumber) o;
-        return getBase() == that.getBase() && (getNumber() != null ? getNumber().equals(that.getNumber()) : that.getNumber() == null);
+        return base == that.base && number != null && number.equals(that.number);
     }
 
     @Override
