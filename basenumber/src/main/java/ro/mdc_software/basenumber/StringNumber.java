@@ -119,7 +119,7 @@ package ro.mdc_software.basenumber;
         return result;
     }
 
-    private static void validate(Object value, int base) throws BaseNumberException {
+    protected static void validate(Object value, int base) throws BaseNumberException {
         if (!(value instanceof String || value instanceof Integer || value instanceof Long)) {
             throw new BaseNumberException("Number must be string or integer or long.");
         }
@@ -139,7 +139,7 @@ package ro.mdc_software.basenumber;
         }
     }
 
-    private void normalize() {
+    protected void normalize() {
         int ok;
         String number = this.getNumber();
         if (number.charAt(0) == '-' && number.length() > 1) {
