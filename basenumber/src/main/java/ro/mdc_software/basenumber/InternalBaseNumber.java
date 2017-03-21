@@ -1,11 +1,13 @@
 package ro.mdc_software.basenumber;
 
+import java.util.Locale;
+
 /**
  * todo
  *
  * @author Cosmin Mihu
  */
-public class InternalBaseNumber extends StringNumber {
+/* package */ class InternalBaseNumber extends StringNumber {
 
     //region Default numbers (zero and one) in base <code>10</code>.
     public static InternalBaseNumber ZERO;
@@ -24,37 +26,36 @@ public class InternalBaseNumber extends StringNumber {
 
     /**
      * Create a number in base 10.
-     *
-     * @throws BaseNumberException
      */
-    protected InternalBaseNumber(Object value) throws BaseNumberException {
+    /* package */ InternalBaseNumber(Object value) {
         super(value, 10);
     }
 
     /**
      * Create ZERO in base 10.
-     *
-     * @throws BaseNumberException
      */
-    protected InternalBaseNumber() throws BaseNumberException {
+    /* package */ InternalBaseNumber() {
         super();
     }
 
     /**
      * Clone a number.
-     *
-     * @throws BaseNumberException
      */
-    protected InternalBaseNumber(InternalBaseNumber number) {
+    /* package */ InternalBaseNumber(InternalBaseNumber number) {
+        super(number);
+    }
+
+    /**
+     * Clone a number.
+     */
+    /* package */ InternalBaseNumber(StringNumber number) {
         super(number);
     }
 
     /**
      * Create a new number.
-     *
-     * @throws BaseNumberException
      */
-    protected InternalBaseNumber(Object value, int base) throws BaseNumberException {
+    /* package */ InternalBaseNumber(Object value, int base) {
         super(value, base);
     }
     //endregion
@@ -64,10 +65,9 @@ public class InternalBaseNumber extends StringNumber {
     /**
      * Addition between <code>this</code> and <code>that</code>.
      * this = this + that
-     *
-     * @throws BaseNumberException
      */
-    protected final void addition(InternalBaseNumber that) throws BaseNumberException {
+    /* package */
+    final void addition(InternalBaseNumber that) {
         if (this.getBase() == that.getBase()) {
             InternalBaseNumber zero = new InternalBaseNumber("0", that.getBase());
             if (this.greaterThan(zero) && that.greaterThan(zero)) {
@@ -94,10 +94,7 @@ public class InternalBaseNumber extends StringNumber {
 
             this.normalize();
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to addition 2 BaseNumbers in different bases: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible addition 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
 
     }
@@ -109,10 +106,9 @@ public class InternalBaseNumber extends StringNumber {
     /**
      * Subtraction between <code>this</code> and <code>that</code>.
      * this = this - that
-     *
-     * @throws BaseNumberException
      */
-    protected final void subtract(InternalBaseNumber that) throws BaseNumberException {
+    /* package */
+    final void subtract(InternalBaseNumber that) {
         if (this.getBase() == that.getBase()) {
             InternalBaseNumber zero = new InternalBaseNumber("0", that.getBase());
             if (this.greaterThan(zero) && that.lessThan(zero)) {
@@ -138,10 +134,7 @@ public class InternalBaseNumber extends StringNumber {
             }
             this.normalize();
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to substract 2 BaseNumbers in different bases: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible to subtract 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
     }
     //endregion
@@ -151,10 +144,9 @@ public class InternalBaseNumber extends StringNumber {
     /**
      * Multiplication of <code>this</code> with <code>that</code>.
      * this = this * that
-     *
-     * @throws BaseNumberException
      */
-    protected final void multiply(InternalBaseNumber that) throws BaseNumberException {
+    /* package */
+    final void multiply(InternalBaseNumber that) {
         if (this.getBase() == that.getBase()) {
             InternalBaseNumber zero = new InternalBaseNumber("0", that.getBase());
             if (this.greaterThanOrEqual(zero) && that.greaterThanOrEqual(zero)) {
@@ -167,12 +159,8 @@ public class InternalBaseNumber extends StringNumber {
                 this.setNumber("-" + InternalBaseNumber.mul(this.getNumber(), that.getNumber().substring(1), this.getBase()));
             }
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to multiply 2 BaseNumbers in different basese: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible to multiply 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
-
     }
 
     //endregion
@@ -182,10 +170,9 @@ public class InternalBaseNumber extends StringNumber {
     /**
      * Division of <code>this</code> with <code>that</code>.
      * this = this / that
-     *
-     * @throws BaseNumberException
      */
-    protected final void divide(InternalBaseNumber that) throws BaseNumberException {
+    /* package */
+    final void divide(InternalBaseNumber that) {
         if (that.getNumber().equals("0")) {
             throw new BaseNumberException("It's not possible to divide by 0!");
         }
@@ -201,20 +188,16 @@ public class InternalBaseNumber extends StringNumber {
                 this.setNumber("-" + InternalBaseNumber.div(this.getNumber(), that.getNumber().substring(1), this.getBase()).get(0));
             }
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to divide 2 BaseNumbers in different bases: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible to divide 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
     }
 
     /**
      * Modulo of <code>this</code> with <code>that</code>.
      * this = this % that
-     *
-     * @throws BaseNumberException
      */
-    protected final void modulo(InternalBaseNumber that) throws BaseNumberException {
+    /* package */
+    final void modulo(InternalBaseNumber that) {
         if (that.getNumber().equals("0")) {
             throw new BaseNumberException("It's not possible to divide by 0!");
         }
@@ -230,10 +213,7 @@ public class InternalBaseNumber extends StringNumber {
                 this.setNumber(InternalBaseNumber.div(this.getNumber(), that.getNumber().substring(1), this.getBase()).get(1));
             }
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to divide 2 BaseNumbers in different bases: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible to modulo 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
     }
     //endregion
@@ -243,17 +223,11 @@ public class InternalBaseNumber extends StringNumber {
     /**
      * Convert of <code>this</code> into another <code>newBase</code>.
      * this = Convert (this) in newBase
-     *
-     * @throws BaseNumberException
      */
-    protected final void convert(int newBase) throws BaseNumberException {
-        try {
-            if (newBase > InternalBaseNumber.getBaseDigits().length()) {
-                throw new BaseNumberException("Base is not correct!"); // ("Baza in care se converteste nu corespunde intervalului de baze!");
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    /* package */
+    final void convert(int newBase) {
+        if (newBase > InternalBaseNumber.getBaseDigits().length()) {
+            throw new BaseNumberException(String.format(Locale.US, "newBase should be between [2, %d]!", InternalBaseNumber.getBaseDigits().length()));
         }
 
         if (this.lessThan(new InternalBaseNumber(0, this.getBase()))) {
@@ -271,10 +245,8 @@ public class InternalBaseNumber extends StringNumber {
      * Is this InternalBaseNumber less than {that}.
      *
      * @return <code>this</code> < <code>that</code>.
-     * @throws BaseNumberException
      */
-    public final boolean lessThan(InternalBaseNumber that)
-            throws BaseNumberException {
+    public final boolean lessThan(InternalBaseNumber that) {
         if (this.getBase() == that.getBase()) {
             String a = this.getNumber(), b = that.getNumber();
             if (a.charAt(0) == '-' && b.charAt(0) == '-') {
@@ -316,10 +288,7 @@ public class InternalBaseNumber extends StringNumber {
                 return false;
             }
         } else {
-            throw new BaseNumberException(
-                    "It's not possible to compare 2 InternalBaseNumber in different bases: "
-                            + (new Integer(this.getBase())).toString() + "!="
-                            + (new Integer(that.getBase())).toString() + ".");
+            throw new BaseNumberException("It's not possible to compare 2 BaseNumbers in different bases: " + this.getBase() + "!=" + that.getBase() + ".");
         }
         return false;
     }
@@ -328,9 +297,8 @@ public class InternalBaseNumber extends StringNumber {
      * Is this InternalBaseNumber greater than {that}.
      *
      * @return <code>this</code> > <code>that</code>.
-     * @throws BaseNumberException
      */
-    public final boolean greaterThan(InternalBaseNumber that) throws BaseNumberException {
+    public final boolean greaterThan(InternalBaseNumber that) {
         if (lessThan(that) || equals(that)) {
             return false;
         }
@@ -341,9 +309,8 @@ public class InternalBaseNumber extends StringNumber {
      * Is this InternalBaseNumber less or equal than {that}.
      *
      * @return <code>this</code> <= <code>that</code>.
-     * @throws BaseNumberException
      */
-    public final boolean lessThanOrEqual(InternalBaseNumber that) throws BaseNumberException {
+    public final boolean lessThanOrEqual(InternalBaseNumber that) {
         if (lessThan(that) || equals(that)) {
             return true;
         }
@@ -354,9 +321,8 @@ public class InternalBaseNumber extends StringNumber {
      * Is this InternalBaseNumber greater or equal than {that}.
      *
      * @return <code>this</code> >= <code>that</code>.
-     * @throws BaseNumberException
      */
-    public final boolean greaterThanOrEqual(InternalBaseNumber that) throws BaseNumberException {
+    public final boolean greaterThanOrEqual(InternalBaseNumber that) {
         if (greaterThan(that) || equals(that)) {
             return true;
         }
@@ -368,12 +334,10 @@ public class InternalBaseNumber extends StringNumber {
 
     /**
      * Base of baseNumber could be different of the current one's base.
-     *
-     * @throws BaseNumberException
      */
-    private boolean equalsInternal(InternalBaseNumber baseNumber) throws BaseNumberException {
+    private boolean equalsInternal(InternalBaseNumber baseNumber) {
         // Convert into my base
-        InternalBaseNumber aux = (InternalBaseNumber) baseNumber.clone();
+        InternalBaseNumber aux = baseNumber.clone();
         aux.convert(this.getBase());
 
         // Check equals now
@@ -386,12 +350,7 @@ public class InternalBaseNumber extends StringNumber {
         if (same) {
             return true;
         }
-        try {
-            return equalsInternal((InternalBaseNumber) obj);
-        } catch (BaseNumberException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return equalsInternal((InternalBaseNumber) obj);
     }
 
     /**
@@ -404,4 +363,9 @@ public class InternalBaseNumber extends StringNumber {
     }
 
     //endregion
+
+    @Override
+    protected InternalBaseNumber clone() {
+        return new InternalBaseNumber(super.clone());
+    }
 }

@@ -1,6 +1,6 @@
 package ro.mdc_software.basenumber;
 
-public class BaseNumberException extends Exception {
+public class BaseNumberException extends RuntimeException {
 	public BaseNumberException() {
 		super("Error!");
 	}

@@ -12,27 +12,28 @@ public class BaseNumber extends InternalBaseNumber {
 
     /**
      * Create a number in base 10.
-     *
-     * @throws BaseNumberException
      */
-    public BaseNumber(Object value) throws BaseNumberException {
+    public BaseNumber(Object value) {
         super(value);
     }
 
     /**
      * Create ZERO in base 10.
-     *
-     * @throws BaseNumberException
      */
-    public BaseNumber() throws BaseNumberException {
+    public BaseNumber() {
     }
 
     /**
      * Clone a number.
-     *
-     * @throws BaseNumberException
      */
     public BaseNumber(BaseNumber number) {
+        super(number);
+    }
+
+    /**
+     * Clone a number.
+     */
+    /* package */ BaseNumber(InternalBaseNumber number) {
         super(number);
     }
 
@@ -42,10 +43,8 @@ public class BaseNumber extends InternalBaseNumber {
 
     /**
      * Create a new number.
-     *
-     * @throws BaseNumberException
      */
-    public BaseNumber(Object value, int base) throws BaseNumberException {
+    public BaseNumber(Object value, int base) {
         super(value, base);
     }
     //endregion
@@ -54,9 +53,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as addition between <code>this</code> and <code>that</code>.
      *
      * @return new = this + that
-     * @throws BaseNumberException
      */
-    public BaseNumber add(BaseNumber that) throws BaseNumberException {
+    public BaseNumber add(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
         clone.addition(that);
         return clone;
@@ -66,9 +64,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as subtraction between <code>this</code> and <code>that</code>.
      *
      * @return new = this - that
-     * @throws BaseNumberException
      */
-    public BaseNumber sub(BaseNumber that) throws BaseNumberException {
+    public BaseNumber sub(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
         clone.subtract(that);
         return clone;
@@ -78,9 +75,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as multiply between <code>this</code> and <code>that</code>.
      *
      * @return new = this * that
-     * @throws BaseNumberException
      */
-    public BaseNumber mul(BaseNumber that) throws BaseNumberException {
+    public BaseNumber mul(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
         clone.multiply(that);
         return clone;
@@ -90,9 +86,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as division between <code>this</code> and <code>that</code>.
      *
      * @return new = this / that
-     * @throws BaseNumberException
      */
-    public BaseNumber div(BaseNumber that) throws BaseNumberException {
+    public BaseNumber div(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
         clone.divide(that);
         return clone;
@@ -102,9 +97,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as modulo between <code>this</code> and <code>that</code>.
      *
      * @return new = this % that
-     * @throws BaseNumberException
      */
-    public BaseNumber modulo(BaseNumber that) throws BaseNumberException {
+    public BaseNumber modulo(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
         clone.modulo((InternalBaseNumber) that);
         return clone;
@@ -118,9 +112,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as increment <code>this</code> with 1.
      *
      * @return new = this + 1
-     * @throws BaseNumberException
      */
-    public BaseNumber increment() throws BaseNumberException {
+    public BaseNumber increment() {
         BaseNumber clone = (BaseNumber) clone();
         clone.addition(new InternalBaseNumber(1, this.getBase()));
         return clone;
@@ -130,9 +123,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as decrement <code>this</code> with 1.
      *
      * @return new = this - 1
-     * @throws BaseNumberException
      */
-    public void decrement() throws BaseNumberException {
+    public void decrement() {
         this.subtract(new InternalBaseNumber(1, this.getBase()));
     }
 
@@ -140,9 +132,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber as unaryNegation ( <code>this</code> ).
      *
      * @return new = unaryNegation ( this )
-     * @throws BaseNumberException
      */
-    public BaseNumber unaryNegation() throws BaseNumberException {
+    public BaseNumber unaryNegation() {
         BaseNumber clone = (BaseNumber) clone();
         if (clone.greaterThan(ZERO)) {
             clone.setNumber("-" + clone.getNumber());
@@ -154,27 +145,24 @@ public class BaseNumber extends InternalBaseNumber {
 
     /**
      * Create a new BaseNumber as orExclusive between <code>this</code> and <code>that</code>.
+     * <code>that</code> should be > 0 (that.getBase).
      *
      * @return new = orExclusive( this , that )
-     * @throws BaseNumberException
      */
-    public BaseNumber orExclusive() throws BaseNumberException {
+    public BaseNumber orExclusive(BaseNumber that) {
         BaseNumber clone = (BaseNumber) clone();
 
-        if (clone.lessThan(new InternalBaseNumber(0, clone.getBase()))) {
-            throw new RuntimeException("// Pre: daca nr2<0 atunci return 0");
+        if (that.lessThan(new BaseNumber(0, that.getBase()))) {
+            throw new RuntimeException("<code>that</code> should be > 0(that.getBase)");
         }
 
         BaseNumber aux = new BaseNumber(1, clone.getBase());
-        BaseNumber contor = new BaseNumber(0, clone.getBase());
-        while (contor.notEquals(clone)) {
-            aux.multiply(clone);
-            contor = contor.increment();
+        BaseNumber count = new BaseNumber(0, that.getBase());
+        while (count.notEquals(that)) {
+            aux = aux.mul(clone);
+            count = count.increment();
         }
-        clone.setNumber(aux.getNumber());
-        clone.setBase(aux.getBase());
-
-        return clone;
+        return aux;
     }
 
     /**
@@ -182,9 +170,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Internal that means <code>this</code> converted in new base <code>newBase</code>.
      *
      * @return new = <code>this</code> left shifted in <code>newBase</code>
-     * @throws BaseNumberException
      */
-    public final BaseNumber shiftLeft(int newBase) throws BaseNumberException {
+    public final BaseNumber shiftLeft(int newBase) {
         BaseNumber clone = (BaseNumber) clone();
         clone.convert(newBase);
         return clone;
@@ -195,9 +182,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Internal that means <code>this</code> DOUBLE converted in new base <code>newBase</code>.
      *
      * @return new = <code>this</code> right shifted in <code>newBase</code>
-     * @throws BaseNumberException
      */
-    public final BaseNumber shiftRight(int newBase) throws BaseNumberException {
+    public final BaseNumber shiftRight(int newBase) {
         BaseNumber clone = (BaseNumber) clone();
         clone.shiftLeft(newBase);
         return clone;
@@ -211,9 +197,8 @@ public class BaseNumber extends InternalBaseNumber {
      * Create a new BaseNumber in a new base.
      *
      * @return new = that converted in <code>newBase</code>
-     * @throws BaseNumberException
      */
-    public static final BaseNumber convert(BaseNumber that, int newBase) throws BaseNumberException {
+    public static BaseNumber convert(BaseNumber that, int newBase) {
         BaseNumber clone = (BaseNumber) that.clone();
         clone.convert(newBase);
         return clone;
@@ -223,10 +208,8 @@ public class BaseNumber extends InternalBaseNumber {
 
     /**
      * Generates a list of BaseNumbers (in base {base}) starting from {start} and ending with {end}.
-     *
-     * @throws BaseNumberException
      */
-    public static final java.util.List<BaseNumber> range(int start, int end, int base) throws BaseNumberException {
+    public static java.util.List<BaseNumber> range(int start, int end, int base) {
         java.util.ArrayList<BaseNumber> list = new java.util.ArrayList<>();
         if (0 <= end) {
             for (int i = start; i <= end; i++) {
@@ -238,29 +221,28 @@ public class BaseNumber extends InternalBaseNumber {
 
     /**
      * Generates a list of BaseNumbers (in base {base}) starting from 0 and ending with {end}.
-     *
-     * @throws BaseNumberException
      */
-    public static final java.util.List<BaseNumber> range(int end, int base) throws BaseNumberException {
+    public static java.util.List<BaseNumber> range(int end, int base) {
         return range(0, end, base);
     }
 
     /**
      * Generates a list of BaseNumbers (in base 10) starting from {start} and ending with {end}.
-     *
-     * @throws BaseNumberException
      */
-    public static final java.util.List<BaseNumber> rangeBase10(int start, int end) throws BaseNumberException {
+    public static java.util.List<BaseNumber> rangeBase10(int start, int end) {
         return range(start, end, 10);
     }
 
     /**
      * Generates a list of BaseNumbers (in base 10) starting from 0 and ending with {end}.
-     *
-     * @throws BaseNumberException
      */
-    public static final java.util.List<BaseNumber> rangeBase10(int end) throws BaseNumberException {
+    public static java.util.List<BaseNumber> rangeBase10(int end) {
         return range(0, end, 10);
     }
     //endregion
+
+    @Override
+    protected BaseNumber clone() {
+        return new BaseNumber(super.clone());
+    }
 }

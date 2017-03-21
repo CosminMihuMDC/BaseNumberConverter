@@ -1,5 +1,7 @@
 package ro.mdc_software.basenumber;
 
+import java.util.Locale;
+
 /**
  * String numbers that implement {@link Number} and also expose actually the parts of the base number.
  *
@@ -47,26 +49,20 @@ package ro.mdc_software.basenumber;
 
     /**
      * Create a number in base 10.
-     *
-     * @throws BaseNumberException
      */
-    protected StringNumber(Object value) throws BaseNumberException {
+    protected StringNumber(Object value) {
         this(value, 10);
     }
 
     /**
      * Create ZERO in base 10.
-     *
-     * @throws BaseNumberException
      */
-    protected StringNumber() throws BaseNumberException {
+    protected StringNumber() {
         this("0", 10);
     }
 
     /**
      * Clone a number.
-     *
-     * @throws BaseNumberException
      */
     protected StringNumber(StringNumber number) {
         this.setNumber(number.getNumber());
@@ -75,10 +71,8 @@ package ro.mdc_software.basenumber;
 
     /**
      * Create a new number.
-     *
-     * @throws BaseNumberException
      */
-    protected StringNumber(Object value, int base) throws BaseNumberException {
+    protected StringNumber(Object value, int base) {
         validate(value, base);
 
         setNumber(value.toString().toUpperCase());
@@ -115,8 +109,7 @@ package ro.mdc_software.basenumber;
 
     @Override
     public String toString() {
-        return this.getNumber() + "(" + (new Integer(this.getBase())).toString()
-                + ")";
+        return String.format(Locale.US, "%s(%d)", this.getNumber(), this.getBase());
     }
 
     @Override
@@ -139,7 +132,7 @@ package ro.mdc_software.basenumber;
         return result;
     }
 
-    protected static void validate(Object value, int base) throws BaseNumberException {
+    protected static void validate(Object value, int base) {
         if (!(value instanceof String || value instanceof Integer || value instanceof Long)) {
             throw new BaseNumberException("Number must be string or integer or long.");
         }
