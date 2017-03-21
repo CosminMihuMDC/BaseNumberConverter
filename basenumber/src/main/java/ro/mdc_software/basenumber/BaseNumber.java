@@ -111,14 +111,95 @@ public class BaseNumber extends InternalBaseNumber {
     }
 
     /**
+     * /////////////////////////////////////// AUX METHODS ////////////////////////////////////////
+     */
+
+    /**
+     * Create a new BaseNumber as increment <code>this</code> with 1.
+     *
+     * @return new = this + 1
+     * @throws BaseNumberException
+     */
+    public BaseNumber increment() throws BaseNumberException {
+        BaseNumber clone = (BaseNumber) clone();
+        clone.addition(new InternalBaseNumber(1, this.getBase()));
+        return clone;
+    }
+
+    /**
+     * Create a new BaseNumber as decrement <code>this</code> with 1.
+     *
+     * @return new = this - 1
+     * @throws BaseNumberException
+     */
+    public void decrement() throws BaseNumberException {
+        this.subtract(new InternalBaseNumber(1, this.getBase()));
+    }
+
+    /**
+     * Create a new BaseNumber as unaryNegation ( <code>this</code> ).
+     *
+     * @return new = unaryNegation ( this )
+     * @throws BaseNumberException
+     */
+    public BaseNumber unaryNegation() throws BaseNumberException {
+        BaseNumber clone = (BaseNumber) clone();
+        if (clone.greaterThan(ZERO)) {
+            clone.setNumber("-" + clone.getNumber());
+        } else if (clone.lessThan(ZERO)) {
+            clone.setNumber(clone.getNumber().substring(1));
+        }
+        return clone;
+    }
+
+    /**
      * Create a new BaseNumber as orExclusive between <code>this</code> and <code>that</code>.
      *
      * @return new = orExclusive( this , that )
      * @throws BaseNumberException
      */
-    public BaseNumber orExclusive(BaseNumber that) throws BaseNumberException {
+    public BaseNumber orExclusive() throws BaseNumberException {
         BaseNumber clone = (BaseNumber) clone();
-        clone.orExclusive(that);
+
+        if (clone.lessThan(new InternalBaseNumber(0, clone.getBase()))) {
+            throw new RuntimeException("// Pre: daca nr2<0 atunci return 0");
+        }
+
+        BaseNumber aux = new BaseNumber(1, clone.getBase());
+        BaseNumber contor = new BaseNumber(0, clone.getBase());
+        while (contor.notEquals(clone)) {
+            aux.multiply(clone);
+            contor = contor.increment();
+        }
+        clone.setNumber(aux.getNumber());
+        clone.setBase(aux.getBase());
+
+        return clone;
+    }
+
+    /**
+     * Create a new BaseNumber which is the left shifted <code>this</code>.
+     * Internal that means <code>this</code> converted in new base <code>newBase</code>.
+     *
+     * @return new = <code>this</code> left shifted in <code>newBase</code>
+     * @throws BaseNumberException
+     */
+    public final BaseNumber shiftLeft(int newBase) throws BaseNumberException {
+        BaseNumber clone = (BaseNumber) clone();
+        clone.convert(newBase);
+        return clone;
+    }
+
+    /**
+     * Create a new BaseNumber which is the right shifted <code>this</code>.
+     * Internal that means <code>this</code> DOUBLE converted in new base <code>newBase</code>.
+     *
+     * @return new = <code>this</code> right shifted in <code>newBase</code>
+     * @throws BaseNumberException
+     */
+    public final BaseNumber shiftRight(int newBase) throws BaseNumberException {
+        BaseNumber clone = (BaseNumber) clone();
+        clone.shiftLeft(newBase);
         return clone;
     }
 
@@ -135,32 +216,6 @@ public class BaseNumber extends InternalBaseNumber {
     public static final BaseNumber convert(BaseNumber that, int newBase) throws BaseNumberException {
         BaseNumber clone = (BaseNumber) that.clone();
         clone.convert(newBase);
-        return clone;
-    }
-
-    /**
-     * Create a new BaseNumber which is the left shifted <code>that</code>.
-     * Internal that means <code>that</code> converted in new base <code>newBase</code>.
-     *
-     * @return new = that left shifted in <code>newBase</code>
-     * @throws BaseNumberException
-     */
-    public static final BaseNumber shiftLeft(BaseNumber that, int newBase) throws BaseNumberException {
-        BaseNumber clone = (BaseNumber) that.clone();
-        clone.shiftLeft(newBase);
-        return clone;
-    }
-
-    /**
-     * Create a new BaseNumber which is the right shifted <code>that</code>.
-     * Internal that means <code>that</code> DOUBLE converted in new base <code>newBase</code>.
-     *
-     * @return new = that right shifted in <code>newBase</code>
-     * @throws BaseNumberException
-     */
-    public static final BaseNumber shiftRight(BaseNumber that, int newBase) throws BaseNumberException {
-        BaseNumber clone = (BaseNumber) that.clone();
-        clone.shiftRight(newBase);
         return clone;
     }
 

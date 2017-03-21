@@ -34,11 +34,11 @@ package ro.mdc_software.basenumber;
     //endregion
 
     //region Setters
-    public void setNumber(String number) {
+    protected void setNumber(String number) {
         this.number = number;
     }
 
-    public void setBase(int value) {
+    protected void setBase(int value) {
         this.base = value;
     }
     //endregion
