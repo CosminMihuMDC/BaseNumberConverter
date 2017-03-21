@@ -44,19 +44,40 @@ package ro.mdc_software.basenumber;
     //endregion
 
     //region Constructors
+
+    /**
+     * Create a number in base 10.
+     *
+     * @throws BaseNumberException
+     */
     protected StringNumber(Object value) throws BaseNumberException {
         this(value, 10);
     }
 
+    /**
+     * Create ZERO in base 10.
+     *
+     * @throws BaseNumberException
+     */
     protected StringNumber() throws BaseNumberException {
         this("0", 10);
     }
 
+    /**
+     * Clone a number.
+     *
+     * @throws BaseNumberException
+     */
     protected StringNumber(StringNumber number) {
         this.setNumber(number.getNumber());
         this.setBase(number.getBase());
     }
 
+    /**
+     * Create a new number.
+     *
+     * @throws BaseNumberException
+     */
     protected StringNumber(Object value, int base) throws BaseNumberException {
         validate(value, base);
 
@@ -88,8 +109,7 @@ package ro.mdc_software.basenumber;
         throw new NumberFormatException("The number cannot be converted to double.");
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected StringNumber clone() {
         return new StringNumber(this);
     }
 

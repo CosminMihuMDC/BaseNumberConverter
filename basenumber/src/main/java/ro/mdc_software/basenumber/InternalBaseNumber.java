@@ -7,14 +7,66 @@ package ro.mdc_software.basenumber;
  */
 public class InternalBaseNumber extends StringNumber {
 
-    //region add | increment
+    //region Default numbers (zero and one) in base <code>10</code>.
+    static InternalBaseNumber ZERO;
+    static InternalBaseNumber ONE;
+
+    static {
+        try {
+            ZERO = new InternalBaseNumber(0);
+            ONE = new InternalBaseNumber(1);
+        } catch (Exception ignore) {
+        }
+    }
+    //endregion
+
+    //region Constructors
+
+    /**
+     * Create a number in base 10.
+     *
+     * @throws BaseNumberException
+     */
+    public InternalBaseNumber(Object value) throws BaseNumberException {
+        super(value, 10);
+    }
+
+    /**
+     * Create ZERO in base 10.
+     *
+     * @throws BaseNumberException
+     */
+    public InternalBaseNumber() throws BaseNumberException {
+        super();
+    }
+
+    /**
+     * Clone a number.
+     *
+     * @throws BaseNumberException
+     */
+    public InternalBaseNumber(InternalBaseNumber number) {
+        super(number);
+    }
+
+    /**
+     * Create a new number.
+     *
+     * @throws BaseNumberException
+     */
+    public InternalBaseNumber(Object value, int base) throws BaseNumberException {
+        super(value, base);
+    }
+    //endregion
+
+    //region addition | increment
 
     /**
      * Aduna la acest InternalBaseNumber un alt InternalBaseNumber.
      *
      * @throws BaseNumberException
      */
-    public void add(InternalBaseNumber that) throws BaseNumberException {
+    public void addition(InternalBaseNumber that) throws BaseNumberException {
         if (this.getBase() == that.getBase()) {
             InternalBaseNumber zero = new InternalBaseNumber("0", that.getBase());
             if (this.greaterThan(zero) && that.greaterThan(zero)) {
@@ -42,7 +94,7 @@ public class InternalBaseNumber extends StringNumber {
             this.normalize();
         } else {
             throw new BaseNumberException(
-                    "It's not possible to add 2 BaseNumbers in different bases: "
+                    "It's not possible to addition 2 BaseNumbers in different bases: "
                             + (new Integer(this.getBase())).toString() + "!="
                             + (new Integer(that.getBase())).toString() + ".");
         }
@@ -50,7 +102,7 @@ public class InternalBaseNumber extends StringNumber {
     }
 
     public void increment() throws BaseNumberException {
-        this.add(new InternalBaseNumber(1, this.getBase()));
+        this.addition(new InternalBaseNumber(1, this.getBase()));
     }
     //endregion
 
@@ -233,38 +285,7 @@ public class InternalBaseNumber extends StringNumber {
     }
     //endregion
 
-    //region Default numbers (zero and one) in base <code>10</code>.
-    static InternalBaseNumber ZERO;
-    static InternalBaseNumber ONE;
-
-    static {
-        try {
-            ZERO = new InternalBaseNumber(0);
-            ONE = new InternalBaseNumber(1);
-        } catch (Exception ignore) {
-        }
-    }
-    //endregion
-
-    //region Constructors
-    public InternalBaseNumber(Object value) throws BaseNumberException {
-        super(value, 10);
-    }
-
-    public InternalBaseNumber() throws BaseNumberException {
-        super();
-    }
-
-    public InternalBaseNumber(InternalBaseNumber number) {
-        super(number);
-    }
-
-    public InternalBaseNumber(Object value, int base) throws BaseNumberException {
-        super(value, base);
-    }
-    //endregion
-
-    //region Compare Functions
+    //region compare
 
     /**
      * Is this InternalBaseNumber less than {that}.
@@ -363,52 +384,7 @@ public class InternalBaseNumber extends StringNumber {
     }
     //endregion
 
-    //region Range Functions
-
-    /**
-     * Generates a list of BaseNumbers (in base {base}) starting from {start} and ending with {end}.
-     *
-     * @throws BaseNumberException
-     */
-    public static java.util.List<InternalBaseNumber> range(int start, int end, int base) throws BaseNumberException {
-        java.util.ArrayList<InternalBaseNumber> list = new java.util.ArrayList<InternalBaseNumber>();
-        if (0 <= end) {
-            for (int i = start; i <= end; i++) {
-                list.add(new InternalBaseNumber(i, base));
-            }
-        }
-        return list;
-    }
-
-    /**
-     * Generates a list of BaseNumbers (in base {base}) starting from 0 and ending with {end}.
-     *
-     * @throws BaseNumberException
-     */
-    public static java.util.List<InternalBaseNumber> range(int end, int base) throws BaseNumberException {
-        return InternalBaseNumber.range(0, end, base);
-    }
-
-    /**
-     * Generates a list of BaseNumbers (in base 10) starting from {start} and ending with {end}.
-     *
-     * @throws BaseNumberException
-     */
-    public static java.util.List<InternalBaseNumber> rangeBase10(int start, int end) throws BaseNumberException {
-        return InternalBaseNumber.range(start, end, 10);
-    }
-
-    /**
-     * Generates a list of BaseNumbers (in base 10) starting from 0 and ending with {end}.
-     *
-     * @throws BaseNumberException
-     */
-    public static java.util.List<InternalBaseNumber> rangeBase10(int end) throws BaseNumberException {
-        return InternalBaseNumber.range(0, end, 10);
-    }
-    //endregion
-
-    //region Equals
+    //region equals
 
     /**
      * Base of baseNumber could be different of the current one's base.
