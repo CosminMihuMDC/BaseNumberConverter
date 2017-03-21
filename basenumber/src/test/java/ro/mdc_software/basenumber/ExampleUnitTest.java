@@ -11,13 +11,9 @@ import static org.junit.Assert.assertTrue;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
 
     @Test
-    public void addition_das() throws Exception {
+    public void test_equals() {
 
         BaseNumber nbr_234_10 = new BaseNumber(234, 10);
         BaseNumber nbr_EA_16 = new BaseNumber("EA", 16);
@@ -41,5 +37,23 @@ public class ExampleUnitTest {
 //        BaseNumber nbr_6C914CBA7B_16 = new BaseNumber("6C914CBA7B", 16);
 //        assertEquals(nbr_261BKPIL9_26, nbr_6C914CBA7B_16);
 //        assertEquals(nbr_466294192763_10, nbr_6C914CBA7B_16);
+    }
+
+    @Test
+    public void test_add() {
+        BaseNumber nbr_234_10 = new BaseNumber(234, 10);
+        BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+        BaseNumber total = new BaseNumber(257, 10);
+        assertEquals(total, nbr_234_10.add(nbr_23_10));
+
+        BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
+        BaseNumber nbr_23_16 = new BaseNumber(23, 16);
+        total = new BaseNumber("a1052", 16);
+        assertEquals(total, nbr_A102F_16.add(nbr_23_16));
+
+        // TODO error
+        BaseNumber minus_nbr_A102F_16 = new BaseNumber("-A102F", 16);
+        total = new BaseNumber("a100c", 16);
+        assertEquals(total, nbr_23_16.add(minus_nbr_A102F_16));
     }
 }
