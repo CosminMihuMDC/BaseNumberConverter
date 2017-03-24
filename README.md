@@ -29,7 +29,31 @@ Step 2. Add the dependency in the form
 
 
 Usage
-=== 
+===
+
+Operation: **ADD**
+```java
+    BaseNumber nbr_234_10 = new BaseNumber(234, 10);
+    BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+    BaseNumber total = nbr_234_10.add(nbr_23_10));
+
+    BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
+    BaseNumber nbr_23_16 = new BaseNumber(23, 16);
+    BaseNumber total = nbr_A102F_16.add(nbr_23_16));
+```
+
+Operation: **SUB**
+```java
+    BaseNumber nbr_234_10 = new BaseNumber(234, 10);
+    BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+    BaseNumber total = nbr_234_10.sub(nbr_23_10));
+
+    BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
+    BaseNumber nbr_23_16 = new BaseNumber(23, 16);
+    total = nbr_A102F_16.sub(nbr_23_16));
+```
+
+
 <!--- just
 DecoView is subclassed from the Android View class. Just like other View subclasses, such as TextView and ImageView, it can be added and configured from your layout XML then controlled in your Activity code.
 
@@ -95,7 +119,7 @@ Android 2.3+ (API Level 9)
 Credits
 ===
 
-- [![MDC ](http://cosminmihu.info/blog/wp-content/uploads/company_logo.png)](http://www.mdc-software.ro)
+[![MDC ](http://cosminmihu.info/blog/wp-content/uploads/company_logo.png)](http://www.mdc-software.ro)
 
 
 License
