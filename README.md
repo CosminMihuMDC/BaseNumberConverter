@@ -37,13 +37,13 @@ Operation: **ADD**
     BaseNumber nbr_23_10 = new BaseNumber(23, 10);
     BaseNumber total = nbr_234_10.add(nbr_23_10));
 
-    Log.d("TOTAL", total.toString()); // 257
+    Log.d("TOTAL", total.toString()); // 257(10)
 
     BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
     BaseNumber nbr_23_16 = new BaseNumber(23, 16);
     BaseNumber total = nbr_A102F_16.add(nbr_23_16));
 
-    Log.d("TOTAL", total.toString()); // A1052
+    Log.d("TOTAL", total.toString()); // A1052(16)
 ```
 
 Operation: **SUB**
@@ -52,13 +52,43 @@ Operation: **SUB**
     BaseNumber nbr_23_10 = new BaseNumber(23, 10);
     BaseNumber total = nbr_234_10.sub(nbr_23_10));
 
-    Log.d("TOTAL", total.toString()); // 211
+    Log.d("TOTAL", total.toString()); // 211(10)
 
     BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
     BaseNumber nbr_23_16 = new BaseNumber(23, 16);
     BaseNumber total = nbr_A102F_16.sub(nbr_23_16));
 
-    Log.d("TOTAL", total.toString()); // A100C
+    Log.d("TOTAL", total.toString()); // A100C(16)
+```
+
+Operation: **MUL**
+```java
+    BaseNumber nbr_234_10 = new BaseNumber(234, 10);
+    BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+    BaseNumber total = nbr_234_10.mul(nbr_23_10));
+
+    Log.d("TOTAL", total.toString()); // 5382(10)
+
+    BaseNumber nbr_EA_16 = new BaseNumber("EA", 16);
+    BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+    BaseNumber total = nbr_EA_16.mul(nbr_17_16));
+
+    Log.d("TOTAL", total.toString()); // 1506(16)
+```
+
+Operation: **DIV**
+```java
+    BaseNumber nbr_5382_10 = new BaseNumber(5382, 10);
+    BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+    BaseNumber total = nbr_5382_10.div(nbr_23_10));
+
+    Log.d("TOTAL", total.toString()); // 234(10)
+
+    BaseNumber nbr_1506_16 = new BaseNumber(1506, 16);
+    BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+    BaseNumber total = nbr_1506_16.div(nbr_17_16));
+
+    Log.d("TOTAL", total.toString()); // EA(16)
 ```
 
 

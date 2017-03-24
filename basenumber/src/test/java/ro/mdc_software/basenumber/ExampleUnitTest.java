@@ -70,4 +70,30 @@ public class ExampleUnitTest {
         assertEquals(total, nbr_A102F_16.sub(nbr_23_16));
     }
 
+    @Test
+    public void test_mul() {
+        BaseNumber nbr_234_10 = new BaseNumber(234, 10);
+        BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+        BaseNumber total = new BaseNumber(5382, 10);
+        assertEquals(total, nbr_234_10.mul(nbr_23_10));
+
+        BaseNumber nbr_EA_16 = new BaseNumber("EA", 16);
+        BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+        total = new BaseNumber(1506, 16);
+        assertEquals(total, nbr_EA_16.mul(nbr_17_16));
+    }
+
+    @Test
+    public void test_div() {
+        BaseNumber nbr_5382_10 = new BaseNumber(5382, 10);
+        BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+        BaseNumber total = new BaseNumber(234, 10);
+        assertEquals(total, nbr_5382_10.div(nbr_23_10));
+
+        BaseNumber nbr_1506_16 = new BaseNumber(1506, 16);
+        BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+        total = new BaseNumber("EA", 16);
+        assertEquals(total, nbr_1506_16.div(nbr_17_16));
+    }
+
 }
