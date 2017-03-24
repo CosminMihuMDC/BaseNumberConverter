@@ -1,7 +1,9 @@
 # BaseConverterNumber
 Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)
 
+<!--
 # [![Build Status](https://travis-ci.org/bmarrdev/android-DecoView-charting.svg?branch=master)](https://travis-ci.org/bmarrdev/android-DecoView-charting) [![Release](https://img.shields.io/github/release/bmarrdev/android-DecoView-charting.svg?label=JitPack)](https://jitpack.io/#bmarrdev/android-DecoView-charting) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DecoView-green.svg?style=flat)](https://android-arsenal.com/details/1/2329)
+-->
 
 Powerful math base numbers operations library for Android developers.
 
@@ -93,7 +95,8 @@ Android 2.3+ (API Level 9)
 Credits
 ===
 
-- [![MDC Software](http://cosminmihu.info/blog/wp-content/uploads/company_logo.png)](http:// www.mdc-software.ro)
+- [![MDC ](http://cosminmihu.info/blog/wp-content/uploads/company_logo.png)](http://www.mdc-software.ro)
+
 
 License
 ===
