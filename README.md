@@ -37,9 +37,13 @@ Operation: **ADD**
     BaseNumber nbr_23_10 = new BaseNumber(23, 10);
     BaseNumber total = nbr_234_10.add(nbr_23_10));
 
+    Log.d("TOTAL", total.toString()); // 257
+
     BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
     BaseNumber nbr_23_16 = new BaseNumber(23, 16);
     BaseNumber total = nbr_A102F_16.add(nbr_23_16));
+
+    Log.d("TOTAL", total.toString()); // A1052
 ```
 
 Operation: **SUB**
@@ -48,9 +52,13 @@ Operation: **SUB**
     BaseNumber nbr_23_10 = new BaseNumber(23, 10);
     BaseNumber total = nbr_234_10.sub(nbr_23_10));
 
+    Log.d("TOTAL", total.toString()); // 211
+
     BaseNumber nbr_A102F_16 = new BaseNumber("A102F", 16);
     BaseNumber nbr_23_16 = new BaseNumber(23, 16);
-    total = nbr_A102F_16.sub(nbr_23_16));
+    BaseNumber total = nbr_A102F_16.sub(nbr_23_16));
+
+    Log.d("TOTAL", total.toString()); // A100C
 ```
 
 
