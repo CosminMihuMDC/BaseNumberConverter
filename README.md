@@ -91,6 +91,20 @@ Operation: **DIV**
     Log.d("TOTAL", total.toString()); // EA(16)
 ```
 
+Operation: **MODULO**
+```java
+    BaseNumber nbr_5382_10 = new BaseNumber(53822, 10);
+    BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+    BaseNumber total = nbr_5382_10.modulo(nbr_23_10));
+
+    Log.d("TOTAL", total.toString()); // 2(10)
+
+    BaseNumber nbr_EA4F_16 = new BaseNumber("EA4F", 16);
+    BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+    BaseNumber total =  nbr_EA4F_16.modulo(nbr_17_16));
+
+    Log.d("TOTAL", total.toString()); // 16(16)
+```
 
 <!--- just
 DecoView is subclassed from the Android View class. Just like other View subclasses, such as TextView and ImageView, it can be added and configured from your layout XML then controlled in your Activity code.

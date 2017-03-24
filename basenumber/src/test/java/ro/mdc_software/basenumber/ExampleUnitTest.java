@@ -96,4 +96,18 @@ public class ExampleUnitTest {
         assertEquals(total, nbr_1506_16.div(nbr_17_16));
     }
 
+    @Test
+    public void test_modulo() {
+        BaseNumber nbr_5382_10 = new BaseNumber(53822, 10);
+        BaseNumber nbr_23_10 = new BaseNumber(23, 10);
+        BaseNumber total = new BaseNumber(2, 10);
+        assertEquals(total, nbr_5382_10.modulo(nbr_23_10));
+
+        BaseNumber nbr_EA4F_16 = new BaseNumber("EA4F", 16);
+        BaseNumber nbr_17_16 = new BaseNumber(17, 16);
+        total = new BaseNumber("16", 16);
+        assertEquals(total, nbr_EA4F_16.modulo(nbr_17_16));
+
+    }
+
 }
