@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+
+def libVersionCode = 1
+def libVersionName = "0.1"
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -7,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode libVersionCode
+        versionName libVersionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -28,4 +34,96 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
+}
+
+// Publishing to jcenter()
+
+def mavenGroupId = "ro.mdc_software"
+def mavenArtifactId = "basenumber"
+def mavenVersion = libVersionName
+def mavenProjectName = "BaseNumberConverterLibrary"
+
+def siteUrl = 'http://www.mdc-software.ro'
+def gitUrl = 'https://github.com/CosminMihuMDC/BaseNumberConverter.git'
+def issuesUrl = 'https://github.com/CosminMihuMDC/BaseNumberConverter/issues'
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                name mavenProjectName
+                description = 'Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)'
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'CosminMihu'
+                        name 'Cosmin Mihu'
+                        email 'cosmin.mihu@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = mavenProjectName // It is the name that appears in bintray when logged
+        desc = "Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        issueTrackerUrl = issuesUrl
+        labels = ['android', 'math', 'math-base', 'number', 'binary', 'hex', 'decimal', 'hexadecimal', 'converter']
+        licenses = ["Apache-2.0"]
+        publish = false
+
+        version {
+            name = mavenVersion
+            released = new Date()
+            vcsTag = mavenVersion
+        }
+    }
 }
