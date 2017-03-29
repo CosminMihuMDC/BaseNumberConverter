@@ -116,7 +116,7 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = "maven"
+        repo = 'android'
         name = MAVEN_PROJECT_NAME // It is the name that appears in bintray when logged
         desc = "This library can convert a number between two custom bases (between 2 and 62)."
         websiteUrl = SITE_URL

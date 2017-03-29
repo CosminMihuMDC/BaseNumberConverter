@@ -42,7 +42,7 @@ repositories {
     jcenter()
     
     maven {
-        url  "http://dl.bintray.com/kosmynmdc/maven"
+        url  "http://dl.bintray.com/cosminmihu/android" 
     }
 }
 ```
@@ -60,7 +60,7 @@ Download via **Ivy**:
 ```
 
 Download via **Bintray**:
-[![Download](https://api.bintray.com/packages/kosmynmdc/maven/BaseNumberConverterLibrary/images/download.svg?version=0.3) ](https://bintray.com/kosmynmdc/maven/BaseNumberConverterLibrary/0.3/link)
+[![Download](https://api.bintray.com/packages/cosminmihu/android/BaseNumberConverterLibrary/images/download.svg?version=0.3) ](https://bintray.com/cosminmihu/android/BaseNumberConverterLibrary/0.3/link)
 
 Number Systems and Bases
 ==
