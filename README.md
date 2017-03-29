@@ -1,22 +1,23 @@
 
 # BaseNumberConverter Library
+Powerful math base numbers operations library for Android developers.
 This library can convert a number between two custom bases (between 2 and 62).
-It works with String, so theoretically, the number limit is infinite :).    
+It works with String, so theoretically, the number limit is infinite :).
+The library supports large/huge numbers in each math base. 
 
 Common bases: base 2, base 8, base 10, base 16.
-
 Examples:
+```
     3424(10) = 110101100000(2)
     12623(10) = 314f(16)
     3a4f(16) = 11101001001111(2)
+```
 
 [![Google Play Store](https://lh4.ggpht.com/OLGti5eKo7FEYFa_dDlPC7h08FBUpc3j5xC64WIToSrOEto4L12TmRtjK4bvIjLhYQ=w200-rw)](https://play.google.com/store/apps/details?id=com.mdc.baseconverter)
 
 <!--
 # [![Build Status](https://travis-ci.org/bmarrdev/android-DecoView-charting.svg?branch=master)](https://travis-ci.org/bmarrdev/android-DecoView-charting) [![Release](https://img.shields.io/github/release/bmarrdev/android-DecoView-charting.svg?label=JitPack)](https://jitpack.io/#bmarrdev/android-DecoView-charting) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DecoView-green.svg?style=flat)](https://android-arsenal.com/details/1/2329)
 -->
-
-Powerful math base numbers operations library for Android developers.
 
 Sample app available from the play store.
 
@@ -72,19 +73,37 @@ Already defined **BaseNumbers**:
 
 **Base Systems**
 ```groovy
-    Base 2 - digits: 01
-    Base 3 - digits: 012
-    Base 4 - digits: 0123
-    Base 8 - digits: 01234567
+    Base  2 - digits: 01
+    Base  3 - digits: 012
+    Base  4 - digits: 0123
+    Base  8 - digits: 01234567
     Base 10 - digits: 0123456789
     Base 16 - digits: 0123456789ABCDEF
-    .....
+    ....
     Base 32 - digits: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
     Base 62 - digits: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 ```
 
 Usage
 ===
+
+Create new BaseNumber: **ADD**
+```java
+    BaseNumber nbr_0_10 = BaseNumber.ZERO;
+    BaseNumber nbr_0_10 = new BaseNumber();
+    BaseNumber nbr_0_10 = new BaseNumber(0);
+    BaseNumber nbr_0_10 = new BaseNumber("0");
+    BaseNumber nbr_0_10 = new BaseNumber(0, 10);
+    BaseNumber nbr_0_10 = new BaseNumber("0", 10);
+    
+    BaseNumber nbr_1_10 = BaseNumber.ONE;
+    BaseNumber nbr_1_10 = new BaseNumber(1);
+    BaseNumber nbr_1_10 = new BaseNumber("1");
+    BaseNumber nbr_1_10 = new BaseNumber(1, 10);
+    BaseNumber nbr_1_10 = new BaseNumber("1", 10);
+    
+    BaseNumber nbr_EF1_16 = new BaseNumber("EF1", 16);
+```
 
 Operation: **ADD**
 ```java
@@ -160,6 +179,8 @@ Operation: **MODULO**
 
     Log.d("TOTAL", total.toString()); // 16(16)
 ```
+
+Operation: **TBD**
 
 <!--- just
 DecoView is subclassed from the Android View class. Just like other View subclasses, such as TextView and ImageView, it can be added and configured from your layout XML then controlled in your Activity code.
