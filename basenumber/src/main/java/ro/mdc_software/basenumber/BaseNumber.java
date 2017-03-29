@@ -8,6 +8,20 @@ package ro.mdc_software.basenumber;
  */
 
 public class BaseNumber extends InternalBaseNumber {
+
+    //region Default numbers (zero and one) in base <code>10</code>.
+    public static BaseNumber ZERO;
+    public static BaseNumber ONE;
+
+    static {
+        try {
+            ZERO = new BaseNumber(0);
+            ONE = new BaseNumber(1);
+        } catch (Exception ignore) {
+        }
+    }
+    //endregion
+
     //region Constructors
 
     /**

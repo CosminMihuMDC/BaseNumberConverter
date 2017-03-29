@@ -61,7 +61,7 @@ install {
                 packaging 'aar'
 
                 name MAVEN_PROJECT_NAME
-                description = 'Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)'
+                description = 'This library can convert a number between two custom bases (between 2 and 62).'
                 url SITE_URL
 
                 // Set your license
@@ -118,7 +118,7 @@ bintray {
     pkg {
         repo = "maven"
         name = MAVEN_PROJECT_NAME // It is the name that appears in bintray when logged
-        desc = "Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)"
+        desc = "This library can convert a number between two custom bases (between 2 and 62)."
         websiteUrl = SITE_URL
         vcsUrl = GIT_URL
         issueTrackerUrl = ISSUE_TRACKER_URL

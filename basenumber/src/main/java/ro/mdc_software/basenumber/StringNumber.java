@@ -75,7 +75,7 @@ import java.util.Locale;
     protected StringNumber(Object value, int base) {
         validate(value, base);
 
-        setNumber(value.toString().toUpperCase());
+        setNumber(value.toString());
         setBase(base);
 
         normalize();
@@ -143,11 +143,11 @@ import java.util.Locale;
             throw new BaseNumberException("Number's base can not be greater than " + getBaseDigits().length() + ".");
         }
 
-        String aux = value.toString().toUpperCase();
+        String aux = value.toString();
         int i = (aux.charAt(0) != '-') ? 0 : 1;
         for (; i < aux.length(); i++) {
             if (getBaseDigits().indexOf(aux.charAt(i)) == -1 || getBaseDigits().indexOf(aux.charAt(i)) >= base) {
-                throw new BaseNumberException("The digit '" + aux.charAt(i) + "' does not exist in base " + (new Integer(base)).toString() + ".");
+                throw new BaseNumberException("The digit '" + aux.charAt(i) + "' does not exist in base " + base + ".");
             }
         }
     }

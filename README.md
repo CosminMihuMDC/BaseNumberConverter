@@ -1,6 +1,14 @@
 
 # BaseNumberConverter Library
-Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)
+This library can convert a number between two custom bases (between 2 and 62).
+It works with String, so theoretically, the number limit is infinite :).    
+
+Common bases: base 2, base 8, base 10, base 16.
+
+Examples:
+    3424(10) = 110101100000(2)
+    12623(10) = 314f(16)
+    3a4f(16) = 11101001001111(2)
 
 [![Google Play Store](https://lh4.ggpht.com/OLGti5eKo7FEYFa_dDlPC7h08FBUpc3j5xC64WIToSrOEto4L12TmRtjK4bvIjLhYQ=w200-rw)](https://play.google.com/store/apps/details?id=com.mdc.baseconverter)
 
@@ -52,6 +60,28 @@ Download via **Ivy**:
 
 Download via **Bintray**:
 [![Download](https://api.bintray.com/packages/kosmynmdc/maven/BaseNumberConverterLibrary/images/download.svg?version=0.2) ](https://bintray.com/kosmynmdc/maven/BaseNumberConverterLibrary/0.2/link)
+
+Number Systems and Bases
+==
+
+Already defined **BaseNumbers**:
+```groovy
+    BaseNumber.ZERO;
+    BaseNumber.ONE;
+```
+
+**Base Systems**
+```groovy
+    Base 2 - digits: 01
+    Base 3 - digits: 012
+    Base 4 - digits: 0123
+    Base 8 - digits: 01234567
+    Base 10 - digits: 0123456789
+    Base 16 - digits: 0123456789ABCDEF
+    .....
+    Base 32 - digits: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    Base 62 - digits: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+```
 
 Usage
 ===

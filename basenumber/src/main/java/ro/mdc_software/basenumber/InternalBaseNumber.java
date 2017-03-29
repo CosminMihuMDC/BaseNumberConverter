@@ -9,19 +9,6 @@ import java.util.Locale;
  */
 /* package */ class InternalBaseNumber extends StringNumber {
 
-    //region Default numbers (zero and one) in base <code>10</code>.
-    public static InternalBaseNumber ZERO;
-    public static InternalBaseNumber ONE;
-
-    static {
-        try {
-            ZERO = new InternalBaseNumber(0);
-            ONE = new InternalBaseNumber(1);
-        } catch (Exception ignore) {
-        }
-    }
-    //endregion
-
     //region Constructors
 
     /**

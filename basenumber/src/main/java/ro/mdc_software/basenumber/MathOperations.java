@@ -8,7 +8,7 @@ package ro.mdc_software.basenumber;
  */
 /* package */ abstract class MathOperations extends Number {
 
-    private static String BASE_DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static String BASE_DIGITS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     protected static String getBaseDigits() {
         return BASE_DIGITS;
