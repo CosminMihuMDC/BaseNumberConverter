@@ -31,7 +31,7 @@ Download via **Maven**:
 <dependency>
     <groupId>ro.mdc_software</groupId>
     <artifactId>basenumber</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 ```
 Download via **Gradle**:
@@ -49,18 +49,18 @@ repositories {
 Step 2. Add the dependency in the form
 ```groovy
 dependencies {
-    compile 'ro.mdc_software:basenumber:0.2'
+    compile 'ro.mdc_software:basenumber:0.3'
 }
 ```
 Download via **Ivy**:
 ```xml
-<dependency org='ro.mdc_software' name='basenumber' rev='0.2'>
+<dependency org='ro.mdc_software' name='basenumber' rev='0.3'>
   <artifact name='basenumber' ext='pom' />
 </dependency>
 ```
 
 Download via **Bintray**:
-[![Download](https://api.bintray.com/packages/kosmynmdc/maven/BaseNumberConverterLibrary/images/download.svg?version=0.2) ](https://bintray.com/kosmynmdc/maven/BaseNumberConverterLibrary/0.2/link)
+[![Download](https://api.bintray.com/packages/kosmynmdc/maven/BaseNumberConverterLibrary/images/download.svg?version=0.3) ](https://bintray.com/kosmynmdc/maven/BaseNumberConverterLibrary/0.3/link)
 
 Number Systems and Bases
 ==
