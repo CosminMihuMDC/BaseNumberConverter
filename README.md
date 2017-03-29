@@ -1,5 +1,8 @@
-# BaseConverterNumber
+
+# BaseNumberConverter Library
 Convert a number from a math base to another base (available bases 2,3,4,5,...,7,8,9,10,..,16,..32,...,35,35)
+
+[![Google Play Store](https://lh4.ggpht.com/OLGti5eKo7FEYFa_dDlPC7h08FBUpc3j5xC64WIToSrOEto4L12TmRtjK4bvIjLhYQ=w200-rw)](https://play.google.com/store/apps/details?id=com.mdc.baseconverter)
 
 <!--
 # [![Build Status](https://travis-ci.org/bmarrdev/android-DecoView-charting.svg?branch=master)](https://travis-ci.org/bmarrdev/android-DecoView-charting) [![Release](https://img.shields.io/github/release/bmarrdev/android-DecoView-charting.svg?label=JitPack)](https://jitpack.io/#bmarrdev/android-DecoView-charting) [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DecoView-green.svg?style=flat)](https://android-arsenal.com/details/1/2329)
@@ -9,24 +12,38 @@ Powerful math base numbers operations library for Android developers.
 
 Sample app available from the play store.
 
-[![Google Play Store](https://github.com/bmarrdev/android-DecoView-charting/blob/master/art/en_app_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.mdc.baseconverter)
+[![Google Play Store](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.mdc.baseconverter)
 
-Including BaseConverterNumber in your project
+Including BaseNumberConverter in your project
 ===
+
+Download via **Maven**:
+
+    <dependency>
+        <groupId>ro.mdc_software</groupId>
+        <artifactId>basenumber</artifactId>
+        <version>0.2</version>
+    </dependency>
+    
+Download via **Gradle**:
 
 Step 1. Add the repositories into your build.gradle
 
-	repositories {
-	    // ...
-	    maven { url "https://jitpack.io" }
-	}
+    repositories {
+        jcenter()
+    }
 
 Step 2. Add the dependency in the form
 
 	dependencies {
-	    compile 'TBD'
+	    compile 'compile 'ro.mdc_software::0.2'
 	}
 
+Download via **Ivy**:
+
+	<dependency org='ro.mdc_software' name='basenumber' rev='0.2'>
+      <artifact name='basenumber' ext='pom' />
+    </dependency>
 
 Usage
 ===
@@ -162,6 +179,13 @@ arcView.addEvent(new DecoEvent.Builder(10).setIndex(series1Index).setDelay(12000
 
 ```
  --->
+
+ProGuard
+===
+
+If you are using ProGuard you might need to add the following option:
+
+    -dontwarn ro.mdc_software.basenumber.**
 
 Requirements
 ===
