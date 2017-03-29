@@ -18,33 +18,33 @@ Including BaseNumberConverter in your project
 ===
 
 Download via **Maven**:
-
-    <dependency>
-        <groupId>ro.mdc_software</groupId>
-        <artifactId>basenumber</artifactId>
-        <version>0.2</version>
-    </dependency>
-    
+```xml
+<dependency>
+    <groupId>ro.mdc_software</groupId>
+    <artifactId>basenumber</artifactId>
+    <version>0.2</version>
+</dependency>
+```
 Download via **Gradle**:
 
 Step 1. Add the repositories into your build.gradle
-
-    repositories {
-        jcenter()
-    }
-
+```groovy
+repositories {
+    jcenter()
+}
+```
 Step 2. Add the dependency in the form
-
-	dependencies {
-	    compile 'compile 'ro.mdc_software::0.2'
-	}
-
+```groovy
+dependencies {
+    compile 'compile 'ro.mdc_software::0.2'
+}
+```
 Download via **Ivy**:
-
-	<dependency org='ro.mdc_software' name='basenumber' rev='0.2'>
-      <artifact name='basenumber' ext='pom' />
-    </dependency>
-
+```xml
+<dependency org='ro.mdc_software' name='basenumber' rev='0.2'>
+  <artifact name='basenumber' ext='pom' />
+</dependency>
+```
 Usage
 ===
 
@@ -179,13 +179,6 @@ arcView.addEvent(new DecoEvent.Builder(10).setIndex(series1Index).setDelay(12000
 
 ```
  --->
-
-ProGuard
-===
-
-If you are using ProGuard you might need to add the following option:
-
-    -dontwarn ro.mdc_software.basenumber.**
 
 Requirements
 ===
