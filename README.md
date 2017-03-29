@@ -31,12 +31,16 @@ Step 1. Add the repositories into your build.gradle
 ```groovy
 repositories {
     jcenter()
+    
+    maven {
+        url  "http://dl.bintray.com/kosmynmdc/maven"
+    }
 }
 ```
 Step 2. Add the dependency in the form
 ```groovy
 dependencies {
-    compile 'compile 'ro.mdc_software::0.2'
+    compile 'ro.mdc_software:basenumber:0.2'
 }
 ```
 Download via **Ivy**:
@@ -45,6 +49,10 @@ Download via **Ivy**:
   <artifact name='basenumber' ext='pom' />
 </dependency>
 ```
+
+Download via **Bintray**:
+[![Download](https://api.bintray.com/packages/kosmynmdc/maven/BaseNumberConverterLibrary/images/download.svg?version=0.2) ](https://bintray.com/kosmynmdc/maven/BaseNumberConverterLibrary/0.2/link)
+
 Usage
 ===
 
